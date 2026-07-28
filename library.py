@@ -43,8 +43,24 @@ def add_book():
     return next_book_number + 1
 
 
-def register_member():
-    print("Register Member - Coming Soon")
+   def register_member(members, next_member_number):
+
+    name = input("Member name: ").strip()
+
+    if name == "":
+        print("Member name cannot be blank.")
+        return next_member_number
+
+    member_id = "M" + str(next_member_number)
+
+    members[member_id] = {
+        "name": name,
+        "borrowed": []
+    }
+
+    print("Registered", member_id + ":", name)
+
+    return next_member_number + 1 
 
 
 def borrow_book():
@@ -72,6 +88,9 @@ books = {}
 
 next_book_number = 1
 
+members = {}
+next_member_number = 1
+
 while True:
     print("\n===== LIBRARY MANAGEMENT SYSTEM =====")
     print("1. Add Book")
@@ -87,10 +106,13 @@ while True:
     
 
     if choice == "1":
-        add_book()
+       next_book_number = add_book(books, next_book_number) 
 
     elif choice == "2":
-        register_member()
+       next_member_number = register_member(
+    members,
+    next_member_number
+) 
 
     elif choice == "3":
         borrow_book()
