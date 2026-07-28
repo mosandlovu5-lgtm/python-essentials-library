@@ -13,7 +13,6 @@ def read_valid_copies():
     print("Valid Copies - Coming Soon")
 
         
-
 def add_book():
     print("Add Book - Coming Soon")
 
