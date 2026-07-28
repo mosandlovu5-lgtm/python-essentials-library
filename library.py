@@ -14,7 +14,33 @@ def read_valid_copies():
 
         
 def add_book():
-    print("Add Book - Coming Soon")
+    title = input("Book title: ").strip()
+
+    if title == "":
+        print("Title cannot be blank.")
+        return next_book_number
+
+    author = input("Author: ").strip()
+
+    if author == "":
+        print("Author cannot be blank.")
+        return next_book_number
+
+    copies = read_valid_copies()
+
+    book_id = "B" + str(next_book_number)
+
+    books[book_id] = {
+        "title": title,
+        "author": author,
+        "total": copies,
+        "available": copies,
+        "times_borrowed": 0
+    }
+
+    print("Added", book_id + ":", title)
+
+    return next_book_number + 1
 
 
 def register_member():
@@ -42,6 +68,10 @@ def library_report():
 
 
 # Main Program
+books = {}
+
+next_book_number = 1
+
 while True:
     print("\n===== LIBRARY MANAGEMENT SYSTEM =====")
     print("1. Add Book")
