@@ -1,6 +1,9 @@
 # Library Management System
 # Mosa Ndlovu
 # Python Essentials 1
+
+# Returns total copies,copies available in the whole libray as tuple
+
 def libray_totals():
     total_titles = len(books)
     total_copies = 0
@@ -13,18 +16,22 @@ def libray_totals():
     return total_titles, total_copies, available_copies
 
 
+# Returns the book id of the most borrowed book or a non if no books where borrowed 
 def most_borrowed():
+    if len(books) == 0:
+        return None, 0
+
     most_borrowed_book_id = None
-    most_borrowed_count = 0
+    most_borrowed_highest = -1
 
     for book_id in books:
-        if books[book_id]["times_borrowed"] > most_borrowed_count:
-            most_borrowed_count = books[book_id]["times_borrowed"]
+        if books[book_id]["times_borrowed"] > most_borrowed_highest:
+            most_borrowed_highest = books[book_id]["times_borrowed"]
             most_borrowed_book_id = book_id
 
-    return most_borrowed_book_id, most_borrowed_count
+    return most_borrowed_book_id, most_borrowed_highest
 
-
+# Asks for number of copies ,and checks with try-except
 def read_valid_copies():
     while True:
         try:
@@ -38,7 +45,7 @@ def read_valid_copies():
         except ValueError:
             print("Please enter a valid whole number.")
 
-        
+#Adds a new book or copies to existing author        
 def add_book():
     title = input("Book title: ").strip()
 
@@ -51,6 +58,11 @@ def add_book():
     if author == "":
         print("Author cannot be blank.")
         return next_book_number
+        
+    for book in books.values():
+    if book["title"].lower() == title.lower():
+        print("Book already exists.")
+        return next_book_number    
 
     copies = read_valid_copies()
 
@@ -143,8 +155,8 @@ def add_book():
 
 
 
-    def search_books(books):
-        if len(books) == 0:
+    def search_catalogue(books):
+         if len(books) == 0:
             print("No books in the library.")
             return
 
@@ -168,7 +180,7 @@ def add_book():
             found = True
 
     if found == False:
-        print("No books match that search.")
+        print("No books match that search.")       
 
 
    def member_summary(books, members):
