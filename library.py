@@ -149,8 +149,31 @@ def add_book():
         print("No books match that search.")
 
 
-def member_summary():
-    print("Member Summary - Coming Soon")
+   def member_summary(books, members):
+
+    member_id = input("Member ID: ").strip()
+
+    if member_id not in members:
+        print("No such member.")
+        return
+
+    member = members[member_id]
+
+    print("\nMember:", member["name"])
+    print("Books out:", len(member["borrowed"]), "of 3 allowed")
+
+    if len(member["borrowed"]) == 0:
+        print("(no books out)")
+        return
+
+    for book_id in member["borrowed"]:
+
+        book = books[book_id]
+
+        print(
+            "  " + book_id + ": " +
+            book["title"]
+        ) 
 
 
 def library_report():
@@ -198,7 +221,7 @@ while True:
         search_books(books)
 
     elif choice == "6":
-        member_summary()
+        member_summary(books, members)
 
     elif choice == "7":
         library_report()
