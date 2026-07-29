@@ -119,8 +119,34 @@ def add_book():
 
 
 
-def search_books():
-    print("Search Books - Coming Soon")
+    def search_books(books):
+
+    if len(books) == 0:
+        print("No books in the library.")
+        return
+
+    keyword = input("Search for: ").strip().lower()
+
+    found = False
+
+    for book_id in books:
+
+        if keyword in books[book_id]["title"].lower():
+
+            book = books[book_id]
+
+            print(
+                book_id + " | " +
+                book["title"] + " | " +
+                book["author"] + " | Available: " +
+                str(book["available"]) + "/" +
+                str(book["total"])
+            )
+
+            found = True
+
+    if found == False:
+        print("No books match that search.")
 
 
 def member_summary():
@@ -169,7 +195,7 @@ while True:
         return_book(books, members)
 
     elif choice == "5":
-        search_books()
+        search_books(books)
 
     elif choice == "6":
         member_summary()
