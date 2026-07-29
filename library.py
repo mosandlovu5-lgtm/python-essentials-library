@@ -60,7 +60,7 @@ def add_book():
         return next_book_number
         
     for book in books.values():
-    if book["title"].lower() == title.lower():
+        if book["title"].lower() == title.lower():
         print("Book already exists.")
         return next_book_number    
 
@@ -81,7 +81,7 @@ def add_book():
     return next_book_number + 1
 
 
-   def register_member(members, next_member_number):
+def register_member(members, next_member_number):
        name = input("Member name: ").strip()
 
     if name == "":
@@ -100,7 +100,7 @@ def add_book():
     return next_member_number + 1 
 
 
-    def borrow_book(books, members):
+def borrow_book(books, members):
 
     member_id = input("Member ID: ").strip()
 
@@ -135,7 +135,7 @@ def add_book():
     print(member_id + " borrowed " + book_id)
 
 
-    def return_book(books, members):
+def return_book(books, members):
         member_id = input("Member ID: ").strip()
 
        if member_id not in members:
@@ -155,7 +155,7 @@ def add_book():
 
 
 
-    def search_catalogue(books):
+def search_catalogue(books):
          if len(books) == 0:
             print("No books in the library.")
             return
@@ -183,7 +183,8 @@ def add_book():
         print("No books match that search.")       
 
 
-   def member_summary(books, members):
+   
+def member_summary(books, members):
 
     member_id = input("Member ID: ").strip()
 
