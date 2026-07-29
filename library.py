@@ -2,15 +2,41 @@
 # Mosa Ndlovu
 # Python Essentials 1
 def libray_totals():
-    print("libray tools - Coming soon")
+    total_titles = len(books)
+    total_copies = 0
+    available_copies = 0
+
+    for book_id in books:
+        total_copies += books[book_id]["total"]
+        available_copies += books[book_id]["available"]
+
+    return total_titles, total_copies, available_copies
 
 
 def most_borrowed():
-    print("Most borrowed - Coming Soon")
+    most_borrowed_book_id = None
+    most_borrowed_count = 0
+
+    for book_id in books:
+        if books[book_id]["times_borrowed"] > most_borrowed_count:
+            most_borrowed_count = books[book_id]["times_borrowed"]
+            most_borrowed_book_id = book_id
+
+    return most_borrowed_book_id, most_borrowed_count
 
 
 def read_valid_copies():
-    print("Valid Copies - Coming Soon")
+    while True:
+        try:
+            copies = int(input("Number of copies: "))
+
+            if copies >= 1:
+                return copies
+
+            print("Copies must be at least 1.")
+
+        except ValueError:
+            print("Please enter a valid whole number.")
 
         
 def add_book():
@@ -118,13 +144,11 @@ def add_book():
 
 
     def search_books(books):
-
-    if len(books) == 0:
-        print("No books in the library.")
-        return
+        if len(books) == 0:
+            print("No books in the library.")
+            return
 
     keyword = input("Search for: ").strip().lower()
-
     found = False
 
     for book_id in books:
