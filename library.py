@@ -44,8 +44,7 @@ def add_book():
 
 
    def register_member(members, next_member_number):
-
-    name = input("Member name: ").strip()
+       name = input("Member name: ").strip()
 
     if name == "":
         print("Member name cannot be blank.")
@@ -99,12 +98,11 @@ def add_book():
 
 
     def return_book(books, members):
+        member_id = input("Member ID: ").strip()
 
-    member_id = input("Member ID: ").strip()
-
-    if member_id not in members:
-        print("No such member.")
-        return
+       if member_id not in members:
+           print("No such member.")
+           return
 
     book_id = input("Book ID: ").strip()
 
@@ -115,7 +113,7 @@ def add_book():
     members[member_id]["borrowed"].remove(book_id)
     books[book_id]["available"] += 1
 
-    print(member_id + " returned " + book_id)
+     print(member_id + " returned " + book_id)
 
 
 
@@ -177,7 +175,43 @@ def add_book():
 
 
 def library_report():
-    print("Library Report - Coming Soon")
+    if len(books) == 0:
+        print("The catalogue is empty.")
+        return
+
+    total_titles, total_copies, available_copies = library_totals(books)
+
+    copies_out = total_copies - available_copies
+
+    book_id, times = most_borrowed(books)
+
+    print("\n===== LIBRARY REPORT =====")
+    print(f"Number of titles: {total_titles}")
+    print(f"Total copies: {total_copies}")
+    print(f"Available copies: {available_copies}")
+    print(f"Copies on loan: {copies_out}")
+
+    if book_id:
+        print(
+            f"Most borrowed book: {book_id} - "
+            f"{books[book_id]['title']} "
+            f"({times} times borrowed)"
+        )
+
+    print(f"Registered members: {len(members)}")
+
+    at_limit = []
+
+    for member_id in members:
+        if len(members[member_id]["borrowed"]) == 3:
+            at_limit.append(member_id)
+
+    if at_limit:
+        print("Members at 3-book limit:")
+        for member in at_limit:
+            print(member)
+    else:
+        print("Members at 3-book limit: none") 
 
 
 # Main Program
@@ -224,11 +258,11 @@ while True:
         member_summary(books, members)
 
     elif choice == "7":
-        library_report()
+         library_report(books, members)
 
     elif choice == "8":
-        print("Goodbye!")
+        print("Thank you for using the Library Management System Goodbye .")
         break
 
     else:
-        print("Invalid choice. Please try again.")
+        print("Invalid choice. Choose 1-8.")
